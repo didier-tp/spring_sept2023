@@ -19,4 +19,21 @@ analyser et interpréter */
 	}
 	
 	
+	//....
+	public MonAfficheur afficheur() {
+		//return new ....;
+		//return new ....();
+	}
+	
+	//....
+	public Coordinateur coordinateur(MonAfficheur afficheur, MonCalculateur calculateur) {
+			Coordinateur coordinateur  = new Coordinateur();
+			//coordinateur.setAfficheur(afficheur);
+			//coordinateur.setCalculateur(calculateur);
+			return coordinateur;
+		     
+	}
+	
+	
+	
 }
