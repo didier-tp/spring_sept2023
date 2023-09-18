@@ -36,4 +36,14 @@ public class Coordinateur {
 		double res =monCalculateur.calculer(x); //x*x ou bien 2*x ou bien ...
 		monAfficheur.afficher("res="+res);// >> res=16 en v1 ou bien ** res=16
 	}
+
+	public void setMonAfficheur(MonAfficheur monAfficheur) {
+		this.monAfficheur = monAfficheur;
+	}
+
+	public void setMonCalculateur(MonCalculateur monCalculateur) {
+		this.monCalculateur = monCalculateur;
+	}
+	
+	
 }
