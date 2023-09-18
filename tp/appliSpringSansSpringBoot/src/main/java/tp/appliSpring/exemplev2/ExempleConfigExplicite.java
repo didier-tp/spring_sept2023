@@ -11,10 +11,11 @@ public class ExempleConfigExplicite {
 packages pour y trouver des annotations @Component , @Service , @Autowired à
 analyser et interpréter */
 	
-	//@Bean //id/nom par defaut = nom de la methode = "calculateurCarre"
-	@Bean("monCalculateurCarre")
+	@Bean //id/nom par defaut = nom de la methode = "calculateurCarre"
+	//@Bean("monCalculateurCarre")
 	public MonCalculateur calculateurCarre() {
 		return new MonCalculateurCarre();
+		//return new MonCalculateurDouble();
 	}
 	
 	
