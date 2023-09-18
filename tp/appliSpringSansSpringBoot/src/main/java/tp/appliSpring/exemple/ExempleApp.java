@@ -11,7 +11,7 @@ public class ExempleApp {
 		
 		MonCalculateur monCalculateur = contextSpring.getBean(MonCalculateur.class);
 		//MonCalculateur monCalculateur = (MonCalculateur) contextSpring.getBean("monCalculateurCarre");
-		System.out.println("4*4=" + monCalculateur.calculer(4));// 4*4=16.0 ou autre
+		System.out.println("res de .calculer=" + monCalculateur.calculer(4));// 4*4=16.0 ou autre
 		
 		Coordinateur coordinateurPrisEnChargeParSpring =
 				contextSpring.getBean(Coordinateur.class);
