@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @PropertySource("classpath:exemples.properties")
-public class ExempleConfigExpliciteAvecProperties {
+public class ExempleConfigExpliciteAvecProperties  {
 	
 
 	@Value("${exemple.calculateur}")

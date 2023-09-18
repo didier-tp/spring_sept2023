@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 //NB: exceptionnellement ici pas de @ComponentScan pour
 //ne pas charger les autres versions (AvecProperties, ...)
-public class ExempleConfigExpliciteVersionSimple {
+public class ExempleConfigExpliciteVersionSimple  {
 	
 	@Bean //id/nom par defaut = nom de la methode = "calculateurCarre"
 	//@Bean("monCalculateurCarre")
