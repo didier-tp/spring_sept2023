@@ -17,6 +17,11 @@ public class ExempleApp {
 				contextSpring.getBean(Coordinateur.class);
 		coordinateurPrisEnChargeParSpring.calculerEtAfficher();
 		
+		CoordinateurAvecInjectionParConstructeur 
+		  coordinateurPrisEnChargeParSpringAvecInjectionParConstructeur =
+				contextSpring.getBean(CoordinateurAvecInjectionParConstructeur.class);
+		coordinateurPrisEnChargeParSpringAvecInjectionParConstructeur.calculerEtAfficher();
+		
 		
 		((AnnotationConfigApplicationContext) contextSpring).close();
 	}
