@@ -26,4 +26,14 @@ public class ServiceCompteImpl implements ServiceCompte {
 		daoCompte.save(cptCred);
 	}
 
+	@Override
+	public Compte rechercherCompte(long numCpt) {
+		return daoCompte.findById(numCpt);
+	}
+
+	@Override
+	public Compte sauvegarderCompte(Compte cpt) {
+		return daoCompte.save(cpt);
+	}
+
 }
