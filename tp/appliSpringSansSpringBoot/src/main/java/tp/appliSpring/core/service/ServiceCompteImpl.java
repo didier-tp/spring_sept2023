@@ -19,6 +19,7 @@ public class ServiceCompteImpl implements ServiceCompte {
 	private DaoCompte daoCompte;
 
 	@Transactional()
+	//@Transactional(propagation = Propagation.REQUIRED)par défaut
 	public void transferer(double montant, long numCptDeb, long numCptCred)throws BankException {
 		try {
 			Compte cptDeb = daoCompte.findById(numCptDeb);
