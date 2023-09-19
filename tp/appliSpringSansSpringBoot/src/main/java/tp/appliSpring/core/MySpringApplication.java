@@ -24,7 +24,7 @@ public class MySpringApplication {
 
 				
 		//ServiceCompte serviceCompte = springContext.getBean(ServiceCompte.class);
-		DaoCompte daoCompte = (DaoCompte) springContext.getBean("daoCompteJdbc");
+		DaoCompte daoCompte = (DaoCompte) springContext.getBean("daoCompteJpa");
 		
 		Compte cptA = new Compte(null,"compteA",100.0);
 		
