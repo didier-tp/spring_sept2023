@@ -42,6 +42,7 @@ public class DaoCompteJpa implements DaoCompte {
 	}
 	*/
 	
+
 	@Override
 	@Transactional 
 	public Compte save(Compte compte) {
@@ -51,7 +52,7 @@ public class DaoCompteJpa implements DaoCompte {
 				entityManager.merge(compte);//UPDATE
 		return compte; //avec numero plus null (auto_incrémenté)
 	}
-
+  
 	@Override
 	public List<Compte> findAll() {
 		return entityManager.createQuery("SELECT c FROM Compte c",Compte.class)

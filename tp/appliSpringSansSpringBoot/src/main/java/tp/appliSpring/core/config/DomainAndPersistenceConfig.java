@@ -56,6 +56,7 @@ public class DomainAndPersistenceConfig {
 		return factory.getObject();
 	} 
 	
+	
 	// Transaction Manager for JPA or ...
 	@Bean(name = "transactionManager") 
 	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
@@ -63,5 +64,5 @@ public class DomainAndPersistenceConfig {
 		txManager.setEntityManagerFactory(entityManagerFactory);
 		return txManager;
 	}
-
+  
 }

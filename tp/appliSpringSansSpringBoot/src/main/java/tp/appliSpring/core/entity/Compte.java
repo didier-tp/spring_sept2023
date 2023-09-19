@@ -1,21 +1,26 @@
 package tp.appliSpring.core.entity;
 
-/*
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-*/
 
-//@Entity
-//@Table(name="COMPTE")
+
+@Entity
+@Table(name="COMPTE")
 public class Compte {
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Column(name="numero")
     private Long numero;
+    
+    @Column(name="label" , length = 64)
     private String label;
+    
     private Double solde;
     
   //+get/set , constructeur , toString()
