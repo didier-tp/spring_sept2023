@@ -22,6 +22,13 @@ public class DaoCompteJpa implements DaoCompte {
 	public Compte findById(Long numCpt) {
 		return entityManager.find(Compte.class, numCpt);
 	}
+	
+	@Override
+	public Compte findWithOperations(Long numCpt) {
+		return entityManager
+				.createNamedQuery("Compte.findWithOperations", Compte.class)
+				.setParameter(1,numCpt).getSingleResult();
+	}
 
 	/*
 	@Override

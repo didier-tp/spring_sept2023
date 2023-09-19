@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tp.appliSpring.core.dao.DaoCompte;
 import tp.appliSpring.core.entity.Compte;
+import tp.appliSpring.core.entity.Operation;
 import tp.appliSpring.core.exception.BankException;
 import tp.appliSpring.core.exception.NotFoundException;
 
@@ -38,7 +39,12 @@ public class ServiceCompteImpl implements ServiceCompte {
 	@Transactional
 	public Compte rechercherCompte(long numCpt)throws NotFoundException {
 		try {
-			return daoCompte.findById(numCpt);
+			//Compte cpt  =daoCompte.findById(numCpt);
+			//for(Operation op : cpt.getOperations()); //bidouille affreuse pour eviter lazy
+			//cpt.getOperations().size();
+			
+			Compte cpt = daoCompte.findWithOperations(numCpt);
+			return cpt;
 		} catch (Exception e) {
 			throw new NotFoundException("account not found with numCpt="+numCpt,e);
 		}
