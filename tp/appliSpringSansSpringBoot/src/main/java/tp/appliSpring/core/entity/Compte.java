@@ -1,11 +1,16 @@
 package tp.appliSpring.core.entity;
 
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -22,6 +27,9 @@ public class Compte {
     private String label;
     
     private Double solde;
+    
+    @OneToMany(mappedBy = "compte" , fetch = FetchType.LAZY , cascade = CascadeType.PERSIST)
+    private List<Operation> operations; //+get/set
     
   //+get/set , constructeur , toString()
     
@@ -71,4 +79,16 @@ public class Compte {
 	public void setSolde(Double solde) {
 		this.solde = solde;
 	}
+
+
+	public List<Operation> getOperations() {
+		return operations;
+	}
+
+
+	public void setOperations(List<Operation> operations) {
+		this.operations = operations;
+	}
+	
+	
 }
