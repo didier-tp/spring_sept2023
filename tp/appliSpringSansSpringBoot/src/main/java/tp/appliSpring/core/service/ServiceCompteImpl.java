@@ -35,6 +35,7 @@ public class ServiceCompteImpl implements ServiceCompte {
 	}
 
 	@Override
+	@Transactional
 	public Compte rechercherCompte(long numCpt)throws NotFoundException {
 		try {
 			return daoCompte.findById(numCpt);

@@ -1,6 +1,7 @@
 package tp.appliSpring.core.entity;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -28,8 +29,8 @@ public class Compte {
     
     private Double solde;
     
-    @OneToMany(mappedBy = "compte" , fetch = FetchType.LAZY , cascade = CascadeType.PERSIST)
-    private List<Operation> operations; //+get/set
+    @OneToMany(mappedBy = "compte" , fetch = FetchType.LAZY )
+    private List<Operation> operations = new ArrayList<>(); //+get/set
     
   //+get/set , constructeur , toString()
     

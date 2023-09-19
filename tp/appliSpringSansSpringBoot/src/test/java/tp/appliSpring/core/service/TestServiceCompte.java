@@ -1,18 +1,20 @@
 package tp.appliSpring.core.service;
 
+import java.util.Date;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import tp.appliSpring.core.MySpringApplication;
+import tp.appliSpring.core.dao.DaoOperation;
 import tp.appliSpring.core.entity.Compte;
-import tp.appliSpring.core.service.ServiceCompte;
+import tp.appliSpring.core.entity.Operation;
 
 @ExtendWith(SpringExtension.class) //si junit5/jupiter
 @ContextConfiguration(classes= {MySpringApplication.class})//reprendre la configuration de la classe principale
@@ -24,13 +26,25 @@ public class TestServiceCompte {
 	@Autowired
 	private ServiceCompte serviceCompte; //à tester
 	
+	@Autowired
+	private DaoOperation daoOperation; //à tester
+	
 	@Test
 	public void testRechercherCompte() {
 		Compte cptA = new Compte(null,"compteA",100.0);
 		Compte cptA_sauvegarde = serviceCompte.sauvegarderCompte(cptA);
 		
+        Operation op1 = new Operation(null,"achat 1" , -5.0 , new Date());
+        op1.setCompte(cptA_sauvegarde); daoOperation.save(op1);
+		Operation op2 = new Operation(null,"achat 2" , -6.0 , new Date());
+		op2.setCompte(cptA_sauvegarde);daoOperation.save(op2);
+		
 		Compte cptA_relu = serviceCompte.rechercherCompte(cptA_sauvegarde.getNumero());
 		logger.debug("cptA_relu="+cptA_relu);
+		for(Operation op : cptA_relu.getOperations()) {
+			logger.debug("\t op="+op);
+		}
+		
 		//Assert.assertTrue(.) en JUnit4
 		Assertions.assertTrue(cptA_relu.getLabel().equals("compteA"));//en JUnit5"
         //...
