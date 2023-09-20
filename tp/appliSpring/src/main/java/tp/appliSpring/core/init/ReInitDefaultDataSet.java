@@ -34,9 +34,10 @@ public class ReInitDefaultDataSet {
 		Operation op2 = new Operation(null,"achat 2" , -6.0 , new Date());
 		op2.setCompte(cptA_sauvegarde);daoOperation.save(op2);
 		
-		
-		Compte cptB = new Compte(null,"compteB",200.0);
-		Compte cptB_sauvegarde = serviceCompte.sauvegarderCompte(cptB);
+	    serviceCompte.sauvegarderCompte(new Compte(null,"compteB",200.0));
+	    serviceCompte.sauvegarderCompte(new Compte(null,"compteC",20.0));
+	    serviceCompte.sauvegarderCompte(new Compte(null,"compteD",30.0));
+	
 	}
 
 }

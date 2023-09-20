@@ -1,5 +1,7 @@
 package tp.appliSpring.core.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -53,6 +55,16 @@ public class ServiceCompteImpl implements ServiceCompte {
 	@Override
 	public Compte sauvegarderCompte(Compte cpt) {
 		return daoCompte.save(cpt);
+	}
+
+	@Override
+	public List<Compte> rechercherTousLesComptes() {
+		return daoCompte.findAll();
+	}
+
+	@Override
+	public List<Compte> rechercherComptesAvecSoldeMini(double soldeMini) {
+		return daoCompte.findBySoldeGreaterThanEqual(soldeMini);
 	}
 
 }

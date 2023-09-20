@@ -1,11 +1,13 @@
 package tp.appliSpring.web.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tp.appliSpring.converter.GenericMapper;
@@ -66,9 +68,14 @@ public class CompteRestCtrl {
 	//En GET
 	//http://localhost:8181/appliSpring/rest/api-bank/compte
 	//http://localhost:8181/appliSpring/rest/api-bank/compte?soldeMini=50
-	public List<CompteDto> getComptesByCriteria( double soldeMini) {
-		//...
-		return null;
+	@GetMapping("")
+	public List<CompteDto> getComptesByCriteria(@RequestParam(value="soldeMini",required=false) Double soldeMini) {
+		List<Compte> listeCompteEntity = new ArrayList<>();
+		if(soldeMini!=null)
+			listeCompteEntity=serviceCompte.rechercherComptesAvecSoldeMini(soldeMini);
+		if(soldeMini==null)
+			listeCompteEntity=serviceCompte.rechercherTousLesComptes();
+		return GenericMapper.MAPPER.map(listeCompteEntity, CompteDto.class);
 	}
 	
 	
