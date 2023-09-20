@@ -1,5 +1,7 @@
 package tp.appliSpring.core.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import tp.appliSpring.core.entity.Compte;
@@ -20,4 +22,9 @@ public interface DaoCompte extends JpaRepository<Compte,Long>{
 	
 	//code de la requete dans @NamedQuery("Compte.findWithOperations")
 	Compte findWithOperations(long numCompte);
+	
+	//le code/la requete de cette méthode va être généré automatiquement (sans @NamedQuery)
+	//car on a respecter la convention de nom de methode
+	//findBy+Solde+GreaterThanEqual avec Compte.solde qui existe
+	List<Compte> findBySoldeGreaterThanEqual(double soldeMini);
 }

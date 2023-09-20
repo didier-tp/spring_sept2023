@@ -1,11 +1,12 @@
 package tp.appliSpring.core.dao;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -29,6 +30,13 @@ public class TestCompteDao {
 		Compte compte = new Compte(null,"compteA",100.0);
 		Compte compteSauvegarde = this.daoCompte.save(compte); //INSERT INTO
 		logger.debug("compteSauvegarde=" + compteSauvegarde);
+		
+		this.daoCompte.save(new Compte(null,"compteAa",10.0));
+		this.daoCompte.save(new Compte(null,"compteAaa",1.0));
+		this.daoCompte.save(new Compte(null,"compteAaaa",60.0));
+		
+		List<Compte> comptes = this.daoCompte.findBySoldeGreaterThanEqual(50.0);
+		logger.debug("comptes avec soldeMini=50 " + comptes);
 		
 		Compte compteRelu = this.daoCompte.findById(compteSauvegarde.getNumero()).get(); //SELECT
 		Assertions.assertEquals("compteA",compteRelu.getLabel());
