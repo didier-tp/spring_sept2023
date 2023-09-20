@@ -35,22 +35,20 @@ public class CompteRestCtrl {
 	}
 	*/
 	
-	/*
-	//V2 avec DTO:
+	
+	//V2 avec DTO et V4 (avec automatisme ExceptionHandler)
 	//declencher en mode GET avec
 	//http://localhost:8181/appliSpring/rest/api-bank/compte/1 ou 2 
 	@GetMapping("/{id}")
 	public CompteDto getCompteById(@PathVariable("id") long numeroCompte) {
-			System.out.println("getCompteById() appelee avec numeroCompte="+numeroCompte);
 			Compte compteEntity = serviceCompte.rechercherCompte( numeroCompte);
-			System.out.println("getCompteById() retournant compteEntity="+compteEntity);
-			
 			return GenericMapper.MAPPER.map(compteEntity, CompteDto.class);
 			//NB: l'objet retourné sera automatiquement converti au format json
 		}
-    */
+    
 	
-	
+	/*
+	//V3 avec ResponseEntity<?> mais sans ExceptionHandler
 	//declencher en mode GET avec
 	//http://localhost:8181/appliSpring/rest/api-bank/compte/1 ou 2 
 	@GetMapping("/{id}")
@@ -64,6 +62,7 @@ public class CompteRestCtrl {
 					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 				}
 	}
+	*/
 	
 	public CompteRestCtrl() {
 	}
