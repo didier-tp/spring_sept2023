@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter @Setter @ToString @NoArgsConstructor
+//@Getter @Setter @ToString @NoArgsConstructor
 public class ApiError {
 
 	private HttpStatus status;
@@ -28,5 +28,56 @@ public class ApiError {
 		this.message = message;
 		this.timestamp = LocalDateTime.now();
 	}
+	
+	
+
+	public ApiError() {
+		super();
+	}
+
+
+
+	public HttpStatus getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(HttpStatus status) {
+		this.status = status;
+	}
+
+
+
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+
+
+
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
+	}
+
+
+
+	public String getMessage() {
+		return message;
+	}
+
+
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "ApiError [status=" + status + ", timestamp=" + timestamp + ", message=" + message + "]";
+	}
+	
+	
 	
 }
