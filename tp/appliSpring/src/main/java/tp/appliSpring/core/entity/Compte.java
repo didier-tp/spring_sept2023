@@ -34,7 +34,7 @@ public class Compte {
     private Double solde;
     
     @OneToMany(mappedBy = "compte" , fetch = FetchType.LAZY )
-    @JsonIgnore
+    //@JsonIgnore
     private List<Operation> operations = new ArrayList<>(); //+get/set
     
   //+get/set , constructeur , toString()
