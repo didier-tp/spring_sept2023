@@ -16,6 +16,7 @@ public interface DaoCompte extends JpaRepository<Compte,Long>{
      par héritage , on a :
 	.save()
 	.findById()
+	.findAll()
 	.deleteById()
 	....
 	*/

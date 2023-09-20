@@ -1,8 +1,8 @@
 package tp.appliSpring.web.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tp.appliSpring.converter.GenericMapper;
 import tp.appliSpring.core.entity.Compte;
-import tp.appliSpring.core.exception.NotFoundException;
 import tp.appliSpring.core.service.ServiceCompte;
 import tp.appliSpring.dto.CompteDto;
 
@@ -63,6 +62,16 @@ public class CompteRestCtrl {
 				}
 	}
 	*/
+	
+	//En GET
+	//http://localhost:8181/appliSpring/rest/api-bank/compte
+	//http://localhost:8181/appliSpring/rest/api-bank/compte?soldeMini=50
+	public List<CompteDto> getComptesByCriteria( double soldeMini) {
+		//...
+		return null;
+	}
+	
+	
 	
 	public CompteRestCtrl() {
 	}
