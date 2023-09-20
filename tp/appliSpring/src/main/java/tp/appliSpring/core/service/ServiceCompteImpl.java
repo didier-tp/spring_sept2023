@@ -43,6 +43,7 @@ public class ServiceCompteImpl implements ServiceCompte {
 			//cpt.getOperations().size();
 			
 			Compte cpt = daoCompte.findWithOperations(numCpt);
+			if(cpt==null) throw new NotFoundException("account not found with numCpt="+numCpt);
 			return cpt;
 		} catch (Exception e) {
 			throw new NotFoundException("account not found with numCpt="+numCpt,e);
