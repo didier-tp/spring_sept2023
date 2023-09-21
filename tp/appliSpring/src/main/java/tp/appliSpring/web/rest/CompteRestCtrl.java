@@ -3,7 +3,12 @@ package tp.appliSpring.web.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -89,7 +94,7 @@ public class CompteRestCtrl {
 	//avec dans la partie "body" de la requête
 	// { "numero" : null , "label" : "comptequiVaBien" , "solde" : 50.0 }
 	@PostMapping("")
-	public CompteDto postCompte(@RequestBody CompteDto compteDto) {
+	public CompteDto postCompte(@Valid @RequestBody CompteDto compteDto) {
 		Compte compteEntity = GenericMapper.MAPPER.map(compteDto, Compte.class);
 		Compte compteSauvegarde = serviceCompte.sauvegarderCompte(compteEntity);  //avec numero auto_incrémenté
 		compteDto = GenericMapper.MAPPER.map(compteSauvegarde, CompteDto.class);
@@ -100,14 +105,21 @@ public class CompteRestCtrl {
 	//avec url = http://localhost:8181/appliSpring/rest/api-bank/compte
 	//ou bien avec url = http://localhost:8181/appliSpring/rest/api-bank/compte/1
 	//avec dans la partie "body" de la requête
-	// { "numero" : 1 , "label" : "libelleModifie" , "solde" : 120.0 }
+	// { "numero" : 1 , "label" : "libelleModifie" , "solde" : 120.0  }
 	@PutMapping("")
-	public CompteDto putCompte(@RequestBody CompteDto compteDto) {
+	public CompteDto putCompte( @RequestBody CompteDto compteDto) {
 			Compte compteEntity = GenericMapper.MAPPER.map(compteDto, Compte.class);
 			Compte compteMisAJour = serviceCompte.updateCompte(compteEntity);  
 			compteDto = GenericMapper.MAPPER.map(compteMisAJour, CompteDto.class);
 			return compteDto; //on pourrait simplement retourner ResponseEntity<>(avec status OK)
 		}
+	
+	//http://localhost:8181/appliSpring/rest/api-bank/compte/1 ou 2 
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteCompteById(@PathVariable("id") long numeroCompte) {
+		serviceCompte.deleteCompte( numeroCompte);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT); //NO_CONTENT = OK mais sans message
+	}
 	
 	
 	

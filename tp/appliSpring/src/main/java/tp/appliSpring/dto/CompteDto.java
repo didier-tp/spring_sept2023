@@ -1,9 +1,17 @@
 package tp.appliSpring.dto;
 
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.Length;
+
 public class CompteDto {
 	
     private Long numero;
+    
+    @Length(min=2, max=30, message = "Nom trop long ou trop court")
 	private String label;
+    
+    @Min(-999)
 	private Double solde;
 
 	

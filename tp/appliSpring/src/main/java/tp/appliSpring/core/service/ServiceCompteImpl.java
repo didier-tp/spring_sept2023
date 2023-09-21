@@ -63,7 +63,16 @@ public class ServiceCompteImpl implements ServiceCompte {
 			throw new NotFoundException("account not found with numero="+cpt.getNumero());
 		return daoCompte.save(cpt);
 	}
+	
+	@Override
+	public void deleteCompte(Long numCpt)throws NotFoundException {
+		if(!daoCompte.existsById(numCpt))
+			throw new NotFoundException("account not found with numero="+numCpt);
+		daoCompte.deleteById(numCpt);
+	}
 
+	
+	
 	@Override
 	public List<Compte> rechercherTousLesComptes() {
 		return daoCompte.findAll();
