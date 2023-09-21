@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -69,14 +71,28 @@ public class CompteRestCtrl {
 	//En GET
 	//http://localhost:8181/appliSpring/rest/api-bank/compte
 	//http://localhost:8181/appliSpring/rest/api-bank/compte?soldeMini=50
+	//http://localhost:8181/appliSpring/rest/api-bank/compte?soldeMini=50&critere2=val2&critere3=val3
 	@GetMapping("")
-	public List<CompteDto> getComptesByCriteria(@RequestParam(value="soldeMini",required=false) Double soldeMini) {
+	public List<CompteDto> getComptesByCriteria(@RequestParam(value="soldeMini",required=false) Double soldeMini,
+			                                    @RequestParam(value="critere2",required=false) String critere2) {
 		List<Compte> listeCompteEntity = new ArrayList<>();
 		if(soldeMini!=null)
 			listeCompteEntity=serviceCompte.rechercherComptesAvecSoldeMini(soldeMini);
 		if(soldeMini==null)
 			listeCompteEntity=serviceCompte.rechercherTousLesComptes();
 		return GenericMapper.MAPPER.map(listeCompteEntity, CompteDto.class);
+	}
+	
+	//appelé en mode POST
+	//avec url = http://localhost:8181/appliSpring/rest/api-bank/compte
+	//avec dans la partie "body" de la requête
+	// { "numero" : null , "label" : "comptequiVaBien" , "solde" : 50.0 }
+	@PostMapping("")
+	public CompteDto postCompte(@RequestBody CompteDto compteDto) {
+		Compte compteEntity = GenericMapper.MAPPER.map(compteDto, Compte.class);
+		Compte compteSauvegarde = serviceCompte.sauvegarderCompte(compteEntity);  //avec numero auto_incrémenté
+		compteDto = GenericMapper.MAPPER.map(compteSauvegarde, CompteDto.class);
+		return compteDto; //avec numero auto_incrémenté
 	}
 	
 	
