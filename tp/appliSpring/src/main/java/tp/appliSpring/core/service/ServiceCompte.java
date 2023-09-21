@@ -13,5 +13,6 @@ public interface ServiceCompte {
 	public List<Compte> rechercherTousLesComptes(); //retourne liste vide si rien trouver
 	public List<Compte> rechercherComptesAvecSoldeMini(double soldeMini); //retourne liste vide si rien trouver
 	public Compte sauvegarderCompte(Compte cpt);
+	public Compte updateCompte(Compte cpt)throws NotFoundException;
 	//...
 }

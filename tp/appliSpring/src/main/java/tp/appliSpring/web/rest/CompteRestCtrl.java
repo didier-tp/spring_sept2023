@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -94,6 +95,19 @@ public class CompteRestCtrl {
 		compteDto = GenericMapper.MAPPER.map(compteSauvegarde, CompteDto.class);
 		return compteDto; //avec numero auto_incrémenté
 	}
+	
+	//appelé en mode PUT
+	//avec url = http://localhost:8181/appliSpring/rest/api-bank/compte
+	//ou bien avec url = http://localhost:8181/appliSpring/rest/api-bank/compte/1
+	//avec dans la partie "body" de la requête
+	// { "numero" : 1 , "label" : "libelleModifie" , "solde" : 120.0 }
+	@PutMapping("")
+	public CompteDto putCompte(@RequestBody CompteDto compteDto) {
+			Compte compteEntity = GenericMapper.MAPPER.map(compteDto, Compte.class);
+			Compte compteMisAJour = serviceCompte.updateCompte(compteEntity);  
+			compteDto = GenericMapper.MAPPER.map(compteMisAJour, CompteDto.class);
+			return compteDto; //on pourrait simplement retourner ResponseEntity<>(avec status OK)
+		}
 	
 	
 	

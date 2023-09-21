@@ -56,6 +56,13 @@ public class ServiceCompteImpl implements ServiceCompte {
 	public Compte sauvegarderCompte(Compte cpt) {
 		return daoCompte.save(cpt);
 	}
+	
+	@Override
+	public Compte updateCompte(Compte cpt)throws NotFoundException {
+		if(!daoCompte.existsById(cpt.getNumero()))
+			throw new NotFoundException("account not found with numero="+cpt.getNumero());
+		return daoCompte.save(cpt);
+	}
 
 	@Override
 	public List<Compte> rechercherTousLesComptes() {
