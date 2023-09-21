@@ -42,6 +42,7 @@ public class CompteRestCtrl {
 	//http://localhost:8181/appliSpring/rest/api-bank/compte/1 ou 2 
 	@GetMapping("/{id}")
 	public CompteDto getCompteById(@PathVariable("id") long numeroCompte) {
+		
 			Compte compteEntity = serviceCompte.rechercherCompte( numeroCompte);
 			return GenericMapper.MAPPER.map(compteEntity, CompteDto.class);
 			//NB: l'objet retourné sera automatiquement converti au format json
