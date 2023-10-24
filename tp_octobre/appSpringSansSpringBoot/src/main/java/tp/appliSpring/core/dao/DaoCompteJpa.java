@@ -2,6 +2,7 @@ package tp.appliSpring.core.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -54,9 +55,13 @@ public class DaoCompteJpa implements DaoCompte {
 
 	@Override
 	public List<Compte> findWithSoldeMini(Double soldeMini) {
-		return entityManager.createQuery("SELECT c FROM Compte c WHERE c.solde > ?1", Compte.class)
+		//return entityManager.createQuery("SELECT c FROM Compte c WHERE c.solde > ?1", Compte.class)
+		return entityManager.createNamedQuery("Compte.findWithSoldeMini", Compte.class)
 				.setParameter(1, soldeMini)
 				.getResultList();
+		
+		//avec @NamedQuery(name = "Compte.findWithSoldeMini" , query = "SELECT c FROM Compte c WHERE c.solde > ?1")
+		//sur la classe @Entity Compte
 	}
 
 }
