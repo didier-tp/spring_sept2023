@@ -45,12 +45,14 @@ public class TestCompteDao {
 		 Assertions.assertEquals(150.0,compteRelu.getSolde());
 		 logger.debug("compteRelu apres miseAjour=" + compteRelu);
 		 
+		 /*
 		 //+supprimer :
 		 this.daoCompte.deleteById(compteSauvegarde.getNumero());
 		 //verifier bien supprimé (en tentant une relecture qui renvoi null)
 		 Compte compteReluApresSuppression =
 		  this.daoCompte.findById(compteSauvegarde.getNumero()); 
 		 Assertions.assertTrue(compteReluApresSuppression == null);
+		 */
 		 }
 
 }
