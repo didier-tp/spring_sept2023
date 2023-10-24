@@ -52,4 +52,11 @@ public class DaoCompteJpa implements DaoCompte {
 		entityManager.remove(cpt);
 	}
 
+	@Override
+	public List<Compte> findWithSoldeMini(Double soldeMini) {
+		return entityManager.createQuery("SELECT c FROM Compte c WHERE c.solde > ?1", Compte.class)
+				.setParameter(1, soldeMini)
+				.getResultList();
+	}
+
 }

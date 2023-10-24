@@ -1,5 +1,7 @@
 package tp.appliSpring.core.dao;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +25,18 @@ public class TestCompteDao {
 	@Autowired
 	@Qualifier("jpa")
 	private DaoCompte daoCompte; //à tester
+	
+	@Test
+	public void testCompteAvecSoldeMini() {
+		this.daoCompte.save( new Compte(null,"compteB1",50.0));
+		this.daoCompte.save( new Compte(null,"compteB2",-50.0));
+		this.daoCompte.save( new Compte(null,"compteB3",250.0));
+		this.daoCompte.save( new Compte(null,"compteB4",-60.0));
+		
+		List<Compte> comptes = daoCompte.findWithSoldeMini(0.0);
+		logger.debug("comptes=" + comptes);
+		Assertions.assertTrue(comptes.size()>=2);
+	}
 	
 	 @Test
 	 public void testAjoutEtRelectureEtSuppression() {

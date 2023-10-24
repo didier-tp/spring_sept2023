@@ -7,6 +7,7 @@ public interface DaoCompte{
  Compte findById(Long numCpt);
  Compte save(Compte compte); //sauvegarde au sens saveOrUpdate
  List<Compte> findAll();
+ List<Compte> findWithSoldeMini(Double soldeMini);
  void deleteById(Long numCpt);
  //...
 }
