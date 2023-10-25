@@ -4,10 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQuery(name = "Compte.findWithSoldeMini" , query = "SELECT c FROM Compte c WHERE c.solde > ?1")
+//@NamedNativeQuery existe aussi
+//@NamedEntityGraph existe aussi
 public class Compte {
 
 	 @Id //pour préciser identifiant / clef primaire
