@@ -15,8 +15,10 @@ import javax.persistence.OneToMany;
 
 @Entity
 @NamedQuery(name = "Compte.findWithSoldeMini" , query = "SELECT c FROM Compte c WHERE c.solde > ?1")
-//@NamedNativeQuery existe aussi
-//@NamedEntityGraph existe aussi
+@NamedQuery(name = "Compte.findByIdWithOperations" , 
+            query = "SELECT c FROM Compte c LEFT JOIN FETCH c.operations WHERE c.numero = ?1")
+//le mot clef FETCH dans la requete correspond à une sorte de EAGER "que pour cette requete"
+//restriction : EAGER ou FETCH ne fonctionne pas à deux niveaux consécutifs , si besoin ---> EntityGraph
 public class Compte {
 
 	 @Id //pour préciser identifiant / clef primaire
