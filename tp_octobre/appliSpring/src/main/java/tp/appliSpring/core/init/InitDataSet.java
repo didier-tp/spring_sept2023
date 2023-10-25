@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import tp.appliSpring.core.entity.Compte;
 import tp.appliSpring.core.service.ServiceCompte;
 
+//avec System.setProperty("spring.profiles.active", "initDataSet"); dans le main()
+
 @Component
 @Profile("initDataSet")
 public class InitDataSet {
