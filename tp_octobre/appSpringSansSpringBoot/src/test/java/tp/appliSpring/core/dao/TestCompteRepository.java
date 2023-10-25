@@ -14,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import tp.appliSpring.core.MySpringApplication;
 import tp.appliSpring.core.dao.DaoCompte;
 import tp.appliSpring.core.entity.Compte;
+import tp.appliSpring.core.entity.Operation;
 
 
 @ExtendWith(SpringExtension.class) //si junit5/jupiter
@@ -24,6 +25,29 @@ public class TestCompteRepository {
 	
 	@Autowired
 	private RepositoryCompte daoCompte; //à tester
+	
+	@Autowired
+	private RepositoryOperation daoOperations; //à aider à tester les comptes
+	
+	@Test
+	public void testCompteAvecOperations() {
+		Compte compteX = this.daoCompte.save( new Compte(null,"compteX",50.0));
+		Operation op1=new Operation(null,"achat ..." , -5.0);
+		op1.setCompte(compteX);
+		daoOperations.save(op1);
+		Operation op2=new Operation(null,"autre achat ..." , -15.0);
+		op2.setCompte(compteX);
+		daoOperations.save(op2);
+		
+		this.daoCompte.save( new Compte(null,"compteY",150.0));
+		
+		//Compte compteXRelu = this.daoCompte.findById(compteX.getNumero()).get(); //avec LazyException dans boucle for plus bas
+		Compte compteXRelu = this.daoCompte.findByIdWithOperations(compteX.getNumero()).get(); //ok
+		System.out.println("compteXRelu=" + compteXRelu.toString());
+		for(Operation op : compteXRelu.getOperations()) {
+			System.out.println("\t op=" + op.toString());
+		}
+	}
 	
 	@Test
 	public void testCompteAvecSoldeMini() {
