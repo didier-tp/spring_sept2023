@@ -44,11 +44,11 @@ public class ServiceCompteImpl implements ServiceCompte {
 			// le dao exécute son code dans la grande transaction
 			//commencée par le service sans la fermer et l'objet cptDeb remonte à l'état persistant
 			cptDeb.setSolde(cptDeb.getSolde() - montant);
-			//this.daoCompte.save(cptDeb); //facultatif si @Transactional
+			this.daoCompte.save(cptDeb); //facultatif si @Transactional
 			//idem pour compte à créditer
 			Compte cptCred = this.daoCompte.findById(numCptCred);
 			cptCred.setSolde(cptCred.getSolde() + montant);
-			//this.daoCompte.save(cptCred) //facultatif si @Transactional
+			this.daoCompte.save(cptCred); //facultatif si @Transactional
 			//en fin de transaction réussie (sans exception) , toutes les modification effectuées
 			//sur les objets à l'état persistant seront répercutées en base (.save() automatiques)
 		} catch (Exception e) {

@@ -46,7 +46,7 @@ public class TestServiceCompte {
 		Assertions.assertEquals(soldeB_avant + 50, soldeB_apres, 0.000001);
 	}
 
-	//@Test
+	@Test
 	public void testMauvaisVirement() {
 		/*
 		 * VARIANTE A CODER/COLPLETER EN TP COPIER/COLLER à ADPATER de testVirement()
@@ -56,5 +56,31 @@ public class TestServiceCompte {
 		 * et B Assertions.assertEquals(soldeA_avant , soldeA_apres,0.000001);
 		 * Assertions.assertEquals(soldeB_avant , soldeB_apres,0.000001);
 		 */
+		
+		Compte compteASauvegarde = this.serviceCompte.sauvegarderCompte(new Compte(null, "compteA", 300.0));
+		Compte compteBSauvegarde = this.serviceCompte.sauvegarderCompte(new Compte(null, "compteB", 100.0));
+		long numCptA = compteASauvegarde.getNumero();
+		long numCptB = compteBSauvegarde.getNumero();
+		//remonter en memoire les anciens soldes des compte A et B avant virement
+		//(+affichage console ou logger) :
+		double soldeA_avant = compteASauvegarde.getSolde();
+		double soldeB_avant = compteBSauvegarde.getSolde();
+		logger.debug("avant mauvais virement, soldeA_avant=" + soldeA_avant + " et soldeB_avant=" + soldeB_avant);
+		//effectuer un virement de 50 euros d'un compte A vers vers compte inexistant -B
+		try {
+			this.serviceCompte.transferer(50.0, numCptA, -numCptB); //erreur volontaire -numCptB plutot que numCptB
+		} catch (Exception e) {
+			 logger.error("echec normal du virement " + e.getMessage());
+		}
+		//remonter en memoire les nouveaux soldes des compte A et B apres virement
+		//(+affichage console ou logger)
+		Compte compteAReluApresVirement = this.serviceCompte.rechercherCompteParNumero(numCptA);
+		Compte compteBReluApresVirement = this.serviceCompte.rechercherCompteParNumero(numCptB);
+		double soldeA_apres = compteAReluApresVirement.getSolde();
+		double soldeB_apres = compteBReluApresVirement.getSolde();
+		logger.debug("apres mauvais virement, soldeA_apres=" + soldeA_apres + " et soldeB_apres=" + soldeB_apres);
+		//verifier -0 et +0 sur les différences de soldes sur A et B :
+		Assertions.assertEquals(soldeA_avant - 0, soldeA_apres, 0.000001);
+		Assertions.assertEquals(soldeB_avant + 0, soldeB_apres, 0.000001);
 	}
 }
