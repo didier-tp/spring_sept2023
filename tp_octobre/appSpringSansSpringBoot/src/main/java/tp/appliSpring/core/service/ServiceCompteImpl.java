@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tp.appliSpring.core.dao.DaoCompte;
 import tp.appliSpring.core.dao.RepositoryCompte;
 import tp.appliSpring.core.entity.Compte;
+import tp.appliSpring.core.entity.Operation;
 
 @Service // classe de Service prise en charge par spring
 //@Transactional possible ici pour ne pas l'oublier
@@ -61,5 +62,26 @@ public class ServiceCompteImpl implements ServiceCompte {
 			//ou bien throw new
 			//ClasseExceptionPersonnaliseeHeritantDeRuntimeException("echec virement" , e);
 		}
+	}
+
+	@Override
+	public Compte rechercherCompteParNumeroAvecOperations(long numero) {
+		return daoCompte.findByIdWithOperations(numero).get();
+	}
+	
+
+	@Transactional
+	public Compte rechercherCompteParNumeroAvecOperationsVersionMoinsBien(long numero) {
+		Compte compte = daoCompte.findById(numero).get();
+		for(Operation op : compte.getOperations()) {
+			//boucle for (à vide) pour declencher (en mode LAZY) des petits "SELECT ... " secondaires
+			//qui vont remonter les valeurs des operations liées aux comptes 
+			//des tables vers la mémoire
+			//AVANT QUE CE SOIT TROP TARD
+		}
+		return compte;
+		//en fin de méthode amémiorée par spring (@Transactional)
+		//fermeture automatique transaction et entityManager
+		// un futur appelant (test ou web) récupèrera le compte à l'état détaché
 	}
 }

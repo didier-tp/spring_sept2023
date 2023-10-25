@@ -5,6 +5,7 @@ import tp.appliSpring.core.entity.Compte;
 
 public interface ServiceCompte {
 	Compte rechercherCompteParNumero(long numero);
+	Compte rechercherCompteParNumeroAvecOperations(long numero);
 
 	List<Compte> rechercherTousComptes();
 
