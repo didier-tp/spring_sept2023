@@ -1,12 +1,17 @@
 package tp.appliSpring.core.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 @Entity
 @NamedQuery(name = "Compte.findWithSoldeMini" , query = "SELECT c FROM Compte c WHERE c.solde > ?1")
@@ -22,6 +27,8 @@ public class Compte {
 	 
 	 private Double solde;
 	 
+	 @OneToMany(mappedBy = "compte" , fetch = FetchType.LAZY) //mappedBy = "nomJavaRelationInverse" @ManyToOne
+	 private List<Operation> operations = new ArrayList<>(); //+get/set
 	 
 
 	@Override
@@ -64,6 +71,16 @@ public class Compte {
 	public void setSolde(Double solde) {
 		this.solde = solde;
 	}
+
+	public List<Operation> getOperations() {
+		return operations;
+	}
+
+	public void setOperations(List<Operation> operations) {
+		this.operations = operations;
+	}
 	 
+	
+	
 	 
 }
