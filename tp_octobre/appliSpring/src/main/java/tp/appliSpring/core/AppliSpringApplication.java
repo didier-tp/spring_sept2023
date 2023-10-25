@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AppliSpringApplication {
 
 	public static void main(String[] args) {
+		System.setProperty("spring.profiles.active", "initDataSet");
+		
 		SpringApplication.run(AppliSpringApplication.class, args);
 		System.out.println("http://localhost:8080/appliSpring");
 		// index.html est normalement placée src/main/resources/static
