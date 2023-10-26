@@ -31,13 +31,13 @@ public class CompteRestCtrl {
 	//RECHERCHE UNIQUE selon RESOURCE-ID:
 	//URL de déclenchement: .../appliSpring/api-rest/compte/1
 	
-	/*
-	@GetMapping(value="/{numCompte}" ) 
-	public Compte getCompteByNumero(@PathVariable("numCompte") Long num) { 
-	 return serviceCompte.rechercherCompteParNumero(num); 
-	}
-	*/
 	
+	@GetMapping(value="/{numCompte}" ) 
+	public CompteL0 getCompteByNumero(@PathVariable("numCompte") Long num) { 
+	     return dtoConverter.compteToCompteL0(serviceCompte.rechercherCompteParNumero(num)); 
+	}
+
+	/*
 	@GetMapping(value="/{numCompte}" ) 
 	public ResponseEntity<CompteDto> getCompteByNumero(@PathVariable("numCompte") Long num) { 
 	 try {
@@ -50,6 +50,7 @@ public class CompteRestCtrl {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	} 
 	}
+	*/
 	
 	//RECHERCHE MULTIPLE
 	//URL de déclenchement: .../appliSpring/api-rest/compte
