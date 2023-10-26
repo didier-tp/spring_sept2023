@@ -9,6 +9,7 @@ import tp.appliSpring.core.dao.DaoCompte;
 import tp.appliSpring.core.dao.RepositoryCompte;
 import tp.appliSpring.core.entity.Compte;
 import tp.appliSpring.core.entity.Operation;
+import tp.appliSpring.core.exception.NotFoundException;
 
 @Service // classe de Service prise en charge par spring
 //@Transactional possible ici pour ne pas l'oublier
@@ -19,8 +20,12 @@ public class ServiceCompteImpl implements ServiceCompte {
 	private RepositoryCompte daoCompte = null;
 
 	public Compte rechercherCompteParNumero(long numero) {
-		//return daoCompte.findById(numero).orElse(null);
-		return daoCompte.findById(numero).get();//retourne exception si pas trouvé
+		try {
+			//return daoCompte.findById(numero).orElse(null);
+			return daoCompte.findById(numero).get();//retourne exception si pas trouvé
+		} catch (Exception e) {
+			throw new NotFoundException("compte inexistant pour numero="+numero,e);
+		}
 	}
 
 	public Compte sauvegarderCompte(Compte compte) {
