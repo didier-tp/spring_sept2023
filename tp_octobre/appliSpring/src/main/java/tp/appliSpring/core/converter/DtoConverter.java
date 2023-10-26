@@ -16,6 +16,10 @@ public class DtoConverter {
 		return new CompteL0(compte.getNumero(),compte.getLabel(),compte.getSolde());
 	}
 	
+	public Compte compteL0ToCompte(CompteL0 compte) {
+		return new Compte(compte.numero(),compte.label(),compte.solde());
+	}
+	
 	public <S,D> D map(S source , Class<D> targetClass) {
 		D target  = null;
 		if(source.getClass().getSimpleName().equals("Compte")

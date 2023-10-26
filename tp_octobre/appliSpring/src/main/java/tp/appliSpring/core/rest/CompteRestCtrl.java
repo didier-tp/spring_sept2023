@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +38,30 @@ public class CompteRestCtrl {
 	@GetMapping(value="/{numCompte}" ) 
 	public CompteL0 getCompteByNumero(@PathVariable("numCompte") Long num) { 
 	     return dtoConverter.compteToCompteL0(serviceCompte.rechercherCompteParNumero(num)); 
+	}
+	
+	@DeleteMapping(value="/{numCompte}" ) 
+	public ResponseEntity<?> deleteCompteByNumero(@PathVariable("numCompte") Long num) { 
+	    try {
+			serviceCompte.supprimerCompte(num);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+			//on retourne 200/OK ou 204/NO_CONTENT
+		} catch (Exception e) {
+			//e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+	}
+	
+	//URL de déclenchement: .../appliSpring/api-rest/compte
+	//en mode POST avec dans la partie "body" :
+	// { "numero" : null , "label" : "nouveauCompte" , "solde" : 50.0 }
+	//ou bien
+	//{  "label" : "nouveauCompte" , "solde" : 50.0 }
+	@PostMapping(value="" ) 
+	public CompteL0 postCompte(@RequestBody CompteL0 compteDto) { 
+	     Compte compte = dtoConverter.compteL0ToCompte(compteDto);
+	     Compte compteSauvegardeAvecClefPrimaireAutoIncrementee = serviceCompte.sauvegarderCompte(compte);
+	     return dtoConverter.compteToCompteL0(compteSauvegardeAvecClefPrimaireAutoIncrementee);
 	}
 
 	/*
