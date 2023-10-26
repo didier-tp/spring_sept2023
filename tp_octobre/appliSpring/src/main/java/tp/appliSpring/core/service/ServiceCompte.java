@@ -8,6 +8,7 @@ public interface ServiceCompte {
 	Compte rechercherCompteParNumeroAvecOperations(long numero);
 
 	List<Compte> rechercherTousComptes();
+	List<Compte> rechercherComptesAvecSoldeMini(Double soldeMini);
 
 	List<Compte> rechercherComptesDuClient(long numClient);
 

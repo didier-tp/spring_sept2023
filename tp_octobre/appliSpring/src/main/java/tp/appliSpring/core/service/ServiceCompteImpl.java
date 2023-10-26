@@ -84,4 +84,9 @@ public class ServiceCompteImpl implements ServiceCompte {
 		//fermeture automatique transaction et entityManager
 		// un futur appelant (test ou web) récupèrera le compte à l'état détaché
 	}
+
+	@Override
+	public List<Compte> rechercherComptesAvecSoldeMini(Double soldeMini) {
+		return daoCompte.findBySoldeGreaterThanEqual(soldeMini);
+	}
 }
