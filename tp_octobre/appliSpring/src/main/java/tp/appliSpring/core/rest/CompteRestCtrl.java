@@ -3,6 +3,8 @@ package tp.appliSpring.core.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +24,25 @@ public class CompteRestCtrl {
 	
 	//RECHERCHE UNIQUE selon RESOURCE-ID:
 	//URL de déclenchement: .../appliSpring/api-rest/compte/1
+	
+	/*
 	@GetMapping(value="/{numCompte}" ) 
 	public Compte getCompteByNumero(@PathVariable("numCompte") Long num) { 
 	 return serviceCompte.rechercherCompteParNumero(num); 
+	}
+	*/
+	
+	@GetMapping(value="/{numCompte}" ) 
+	public ResponseEntity<Compte> getCompteByNumero(@PathVariable("numCompte") Long num) { 
+	 try {
+		Compte compte = serviceCompte.rechercherCompteParNumero(num);
+		return new ResponseEntity<Compte>(compte, HttpStatus.OK);
+
+	} catch (Exception e) {
+		//e.printStackTrace();
+		//return new ResponseEntity<Compte>(HttpStatus.NOT_FOUND);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	} 
 	}
 	
 	//RECHERCHE MULTIPLE
