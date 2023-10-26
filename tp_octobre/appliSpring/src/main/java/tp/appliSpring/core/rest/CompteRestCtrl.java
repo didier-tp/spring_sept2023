@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import tp.appliSpring.core.converter.DtoConverter;
+import tp.appliSpring.core.dto.CompteL0;
 import tp.appliSpring.core.entity.Compte;
 import tp.appliSpring.core.service.ServiceCompte;
 
@@ -21,6 +23,9 @@ public class CompteRestCtrl {
 	
 	@Autowired
 	private ServiceCompte serviceCompte;
+	
+	@Autowired
+	private DtoConverter dtoConverter;
 	
 	//RECHERCHE UNIQUE selon RESOURCE-ID:
 	//URL de déclenchement: .../appliSpring/api-rest/compte/1
@@ -33,10 +38,10 @@ public class CompteRestCtrl {
 	*/
 	
 	@GetMapping(value="/{numCompte}" ) 
-	public ResponseEntity<Compte> getCompteByNumero(@PathVariable("numCompte") Long num) { 
+	public ResponseEntity<CompteL0> getCompteByNumero(@PathVariable("numCompte") Long num) { 
 	 try {
 		Compte compte = serviceCompte.rechercherCompteParNumero(num);
-		return new ResponseEntity<Compte>(compte, HttpStatus.OK);
+		return new ResponseEntity<CompteL0>( dtoConverter.compteToCompteL0(compte) , HttpStatus.OK);
 
 	} catch (Exception e) {
 		//e.printStackTrace();

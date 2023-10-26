@@ -13,6 +13,8 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @NamedQuery(name = "Compte.findWithSoldeMini" , query = "SELECT c FROM Compte c WHERE c.solde > ?1")
 @NamedQuery(name = "Compte.findByIdWithOperations" , 
@@ -30,6 +32,7 @@ public class Compte {
 	 private Double solde;
 	 
 	 @OneToMany(mappedBy = "compte" , fetch = FetchType.LAZY) //mappedBy = "nomJavaRelationInverse" @ManyToOne
+	 @JsonIgnore
 	 private List<Operation> operations = new ArrayList<>(); //+get/set
 	 
 

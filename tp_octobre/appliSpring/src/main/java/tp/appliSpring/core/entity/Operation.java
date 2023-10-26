@@ -10,6 +10,8 @@ import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQuery;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Operation {
 
@@ -23,6 +25,7 @@ public class Operation {
 	 
 	 @ManyToOne()
 	 @JoinColumn(name = "numCompte") //nom de la colonne "foreignKey" qui référence le compte lié à l'opération
+	 //@JsonIgnore
 	 private Compte compte; //avec get/set
 	 
 
