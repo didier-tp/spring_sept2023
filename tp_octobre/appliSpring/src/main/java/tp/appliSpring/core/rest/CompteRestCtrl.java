@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tp.appliSpring.core.converter.DtoConverter;
+import tp.appliSpring.core.dto.CompteDto;
 import tp.appliSpring.core.dto.CompteL0;
 import tp.appliSpring.core.entity.Compte;
 import tp.appliSpring.core.service.ServiceCompte;
@@ -38,10 +39,10 @@ public class CompteRestCtrl {
 	*/
 	
 	@GetMapping(value="/{numCompte}" ) 
-	public ResponseEntity<CompteL0> getCompteByNumero(@PathVariable("numCompte") Long num) { 
+	public ResponseEntity<CompteDto> getCompteByNumero(@PathVariable("numCompte") Long num) { 
 	 try {
 		Compte compte = serviceCompte.rechercherCompteParNumero(num);
-		return new ResponseEntity<CompteL0>( dtoConverter.compteToCompteL0(compte) , HttpStatus.OK);
+		return new ResponseEntity<CompteDto>( dtoConverter.compteToCompteL0(compte) , HttpStatus.OK);
 
 	} catch (Exception e) {
 		//e.printStackTrace();
@@ -54,11 +55,11 @@ public class CompteRestCtrl {
 	//URL de déclenchement: .../appliSpring/api-rest/compte
 	//                      .../appliSpring/api-rest/compte?soldeMini=0
 	@GetMapping(value="" ) 
-	public List<Compte> getComptesByCriteria(@RequestParam(value="soldeMini",required=false) Double soldeMini){
+	public List<CompteL0> getComptesByCriteria(@RequestParam(value="soldeMini",required=false) Double soldeMini){
 		if(soldeMini==null)
-			return serviceCompte.rechercherTousComptes();
+			return dtoConverter.map(serviceCompte.rechercherTousComptes(),CompteL0.class);
 		else
-			return serviceCompte.rechercherComptesAvecSoldeMini(soldeMini);
+			return dtoConverter.map(serviceCompte.rechercherComptesAvecSoldeMini(soldeMini),CompteL0.class);
 	}
 
 

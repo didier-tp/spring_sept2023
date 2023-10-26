@@ -14,7 +14,7 @@ public class CompteL0 {
 
 
 
-public record CompteL0(Long numero,String label,Double solde) {
+public record CompteL0(Long numero,String label,Double solde) implements CompteDto {
 	//constructeur prédéfini
 	//.toString() prédéfini
 	//pas de .set() car record sont immutable
